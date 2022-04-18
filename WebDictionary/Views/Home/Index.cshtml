@@ -1,0 +1,88 @@
+﻿@model List<Word>
+@{
+    ViewData["Title"] = "Home Page";
+}
+@*@{ Layout = null;}*@
+
+<div>
+    
+    <div style="margin-bottom:5px" >
+        <a asp-action="Index" class="btn btn-success" >Anasayfa</a>
+
+        <a asp-action="CreateWord" class="btn btn-success" >Yeni Kisi Ekle</a>
+    
+     
+        <a asp-action="Index" asp-route-order="Words" style="margin-left:740px" class="btn btn-success">Kelime</a> 
+        <a asp-action="Index" asp-route-order="Description" class="btn btn-success" >Anlamı</a>
+    </div>
+
+</div>
+
+<div>
+    <form asp-action="Index" method="get">
+        <input type="text" class="form-control" id="searchBox" name="searchBox" placeholder="Aranacak Kelime..." />
+        <input type="submit" style="margin-top:5px" value="Ara" />
+    </form>
+</div>
+
+
+<div>
+    <h2>Kelime ve Anlamları</h2>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>KELİME</th>
+            <th>1.ANLAMI</th>
+            <th>2.ANLAMI</th>
+            <th style="text-align:center ">SİL-GÜNCELLE </th>
+        </tr>
+        @{
+            foreach (Word word in Model)
+            {
+                <tr>
+                    <td>@word.Id</td>
+                    <td>@word.Words</td>
+                    <td>@word.Description</td>
+                    <td>@word.Description2</td>
+                    <td> 
+                        <div class="text-center">
+                        <a onclick="return eminMisiniz(@word.Id)"  class="btn btn-danger " style="margin-left:5px" asp-route-id="@word.Id" asp-action="Delete">Sil</a>
+                        <a asp-route-id="@word.Id" class="btn btn-warning " asp-action="CreateWord">Güncelle</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+
+
+    </table>
+
+
+    <script>
+        function eminMisiniz(id) {
+            //alert(id+"nolu kaydı silmek istediğinizden emin misiniz?");
+            var dialogResult = confirm(id + " numaralı kaydı silmek istediğinizden emin misiniz?");
+            console.log(dialogResult);
+            return dialogResult;
+        }
+    </script>
+
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        a, tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+
