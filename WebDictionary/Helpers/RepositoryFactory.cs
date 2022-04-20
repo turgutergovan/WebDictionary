@@ -1,4 +1,6 @@
-﻿using DataAccessLayer.Repositories;
+﻿using DataAccessLayer;
+using DataAccessLayer.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +10,7 @@ namespace WebDictionary.Helpers
 {
     public class RepositoryFactory
     {
-        static WordRepository _repoWord;
+        static IRepositoryWord _repoWord;
         public static IRepositoryWord CreateRepo(string tip)
         {
             if (_repoWord == null)
@@ -17,7 +19,10 @@ namespace WebDictionary.Helpers
                 {
                     lock (new object())
                     {
-                        _repoWord = new WordRepository();
+                        var optionsBuilder = new DbContextOptionsBuilder<WordDbContext>();
+                        optionsBuilder.UseSqlServer("Server=DESKTOP-R2IBTOP;Database=SozlukApp;Trusted_Connection=True;MultipleActiveResultSets=true");
+                        WordDbContext context = new WordDbContext(optionsBuilder.Options);
+                        _repoWord = new WordRepositoryNew(context);
                     }
                     return _repoWord;
                 }

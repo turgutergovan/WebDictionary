@@ -1,4 +1,4 @@
-﻿@model List<Word>
+﻿@model List<WordViewModel>
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -9,10 +9,10 @@
     <div style="margin-bottom:5px" >
         <a asp-action="Index" class="btn btn-success" >Anasayfa</a>
 
-        <a asp-action="CreateWord" class="btn btn-success" >Yeni Kisi Ekle</a>
+        <a asp-action="CreateWord" class="btn btn-success" >Yeni Kelime Ekle</a>
     
      
-        <a asp-action="Index" asp-route-order="Words" style="margin-left:740px" class="btn btn-success">Kelime</a> 
+        <a asp-action="Index" asp-route-order="Words" style="margin-left:720px" class="btn btn-success">Kelime</a> 
         <a asp-action="Index" asp-route-order="Description" class="btn btn-success" >Anlamı</a>
     </div>
 
@@ -38,7 +38,7 @@
             <th style="text-align:center ">SİL-GÜNCELLE </th>
         </tr>
         @{
-            foreach (Word word in Model)
+            foreach (WordViewModel word in Model)
             {
                 <tr>
                     <td>@word.Id</td>
@@ -86,3 +86,5 @@
         }
     </style>
 
+
+</div>
